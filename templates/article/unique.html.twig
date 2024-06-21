@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DisplayArticle{% endblock %}
+
+{% block contenent %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+{{ include('nav.html.twig') }}
+<section class="">
+    <div class="container">
+        <div class="row border text-center">
+            <h2>{{article.nameArticle}}</h2>
+            <div class="col-lg-12">
+                <div class=" mb-4">
+                    <p>{{ article.dateArticle|date('d/m/Y')}}</p>
+                </div>
+            </div>
+            {% if article.image is not null %}
+            <p>
+            <img src="{{ ('/uploads/article/' ~ article.image)}}" alt = "logo"></img>
+            </p>
+            {% endif %}
+            
+            
+            <div class="col-lg-12">
+                <div class=" mb-4">
+                    <p>Description :  <br>{{article.shortDescriptionArticle}}</p>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="mb-4">
+                    <p>Texte : <br>{{article.textArticle}}</p>
+                    {% for categories in article %}
+                    <p><br>{{article.categories}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-12">
+            {% if (article.id is empty)%}
+            <a class="col-lg-3 mb-4 btn btn-primary" href="{{path("article_item", {id: article.id -1})}}">
+            "Précédent"
+            </a>
+            {% endif %}
+            {% if (article.id is empty)%}
+            <a class="col-lg-3 mb-4 btn btn-primary" href="{{path("article_item", {id: article.id +1})}}">
+            "Suivant"
+            </a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
